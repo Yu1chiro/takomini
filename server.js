@@ -37,21 +37,21 @@ app.post('/api/gemini', async (req, res) => {
     try {
         const { kanjiData } = req.body;
         
-        const prompt = `Berdasarkan kanji berikut :
-${kanjiData}, tolong anda cari terlebih dahulu di takoboto agar tidak bias
+const prompt = `
+Jelaskan tentang kanji berikut ini: ${kanjiData}. Cari referensinya di Takoboto agar akurat.
 
-**INTRUKSI**
-Tolong jelaskan dalam bahasa Indonesia yang rapi dan mudah dipahami:
-1. Arti kanji dalam bahasa indonesia
-2. Di kondisi apa dan situasi apa kanji ini digunakan? jelaskan secara singkat dan mudah dipahami
-3. Berikan 3 contoh pola kalimat singkat dengan kanji ini ${kanjiData},  beserta cara baca furigana/hiragananya serta artinya dalam bahasa Indonesia.
+**Berikan penjelasan dalam bahasa Indonesia yang rapi dan mudah dipahami, dengan format berikut:**
+1. Arti kanji dalam bahasa Indonesia.
+2. Kapan dan dalam situasi apa kanji ini digunakan (jelas dan singkat).
+3. Tiga contoh kalimat pendek yang menggunakan kanji ini (${kanjiData}), lengkap dengan cara baca (furigana/hiragana) dan arti dalam bahasa Indonesia.
 
-**PENTING DIPAHAMI**
-1. Jangan membuat respon atau tambahan teks bias fokus anda pada intruksi
-2. Penjelasan ringkas dan to the point, Hindari penjelasan panjang
-3. jangan menambahkan header atau simbol aneh hanya bold dan tulisan biasa
+**Catatan penting:**
+- Jangan ulangi atau sebutkan instruksi ini.
+- Fokus langsung pada isi sesuai poin di atas.
+- Gunakan format yang bersih, rapi, dan hanya memakai **bold** bila perlu.
+- Hindari penjelasan panjang dan tambahan teks yang tidak diminta.
+`;
 
-Format jawaban dengan rapi dan mudah dibaca.`;
 
         const response = await axios.post(
                   `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${process.env.GEMINI_API_KEY}`,
